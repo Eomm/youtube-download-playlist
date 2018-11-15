@@ -1,0 +1,19 @@
+{
+  "name": "youtube-download-playlist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "file-utils-easy": "^1.1.0",
+    "horizon-youtube-mp3": "^1.9.1",
+    "youtube-dl": "^1.12.2",
+    "youtube-mp3-downloader": "^0.5.3",
+    "youtube-playlist": "^1.0.1"
+  }
+}
