@@ -2,8 +2,9 @@
   "name": "youtube-download-playlist",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,5 +18,8 @@
     "youtube-playlist": "^1.0.1",
     "youtube-playlist-dl": "^1.1.0",
     "ytpl": "^0.1.14"
+  },
+  "devDependencies": {
+    "electron": "^3.0.10"
   }
 }

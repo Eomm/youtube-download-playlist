@@ -22,10 +22,10 @@ class DownloadYTFile {
 
   }
 
-  download(id) {
+  download(id, fileName = null) {
     return new Promise((resolve, reject) => {
       horizon.downloadToLocal(`http://youtube.com/watch?v=${id}`,
-        downloadPath, null, null, null,
+        downloadPath, fileName, null, null,
         (err, result) => {
           console.log(err, result);
           // Will return...
