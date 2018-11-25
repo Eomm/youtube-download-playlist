@@ -4,19 +4,21 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "cli": "node list.js",
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "youtube",
+    "download",
+    "playlist",
+    "mp3"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "file-utils-easy": "^1.1.0",
     "horizon-youtube-mp3": "^1.9.1",
-    "youtube-dl": "^1.12.2",
-    "youtube-mp3-downloader": "^0.5.3",
-    "youtube-playlist": "^1.0.1",
-    "youtube-playlist-dl": "^1.1.0",
     "ytpl": "^0.1.14"
   },
   "devDependencies": {
