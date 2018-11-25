@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-base",
+    "plugin:jest/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "rules": {
+    "global-require": "warn",
+    "no-param-reassign": "warn",
+    "no-use-before-define": "off"
+  }
+}
