@@ -17,7 +17,7 @@
     "playlist",
     "mp3"
   ],
-  "author": "",
+  "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
   "license": "MIT",
   "dependencies": {
     "file-utils-easy": "^1.1.0",
