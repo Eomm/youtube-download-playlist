@@ -1,5 +1,7 @@
 const { app, BrowserWindow } = require('electron')
 
+require('electron-reload')(__dirname);
+
 // Mantiene un riferimento globale all'oggetto window, se non lo fai, la finestra sarà
 // chiusa automaticamente quando l'oggetto JavaScript sarà garbage collected.
 let win
