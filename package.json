@@ -5,13 +5,11 @@
   "main": "app.js",
   "scripts": {
     "cli": "node cli.js",
-    "start": "electron .",
-    "test": "jest --coverage",
+    "test": "standard && jest --coverage",
+    "standard:fix": "standard --fix",
     "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "update-modules": "npm update && npm prune --production",
-    "coverage": "npm test && npm run coveralls",
-    "install-rebuild": "npm i -g electron-rebuild",
-    "ebuild-module": "electron-rebuild -v 3.0.10 -w"
+    "coverage": "npm test && npm run coveralls"
   },
   "keywords": [
     "youtube",
@@ -29,13 +27,8 @@
   "devDependencies": {
     "@types/jest": "^23.1.0",
     "coveralls": "^3.0.1",
-    "electron": "^3.0.10",
-    "electron-reload": "^1.3.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jest": "^21.17.0",
-    "jest": "^22.4.4"
+    "jest": "^22.4.4",
+    "standard": "^12.0.1"
   },
   "jest": {
     "testEnvironment": "node"
