@@ -5,19 +5,29 @@ const fue = require('file-utils-easy')
 
 const OUT_DIR = 'test/out'
 const TEST_PLAYLIST = {
+  singleSong: { id: 'ZIyyj2FrVI0', length: 1 },
   twoSongs: { id: 'PLAv2aQ9JgGbVcUtDpuiTB9WgaMljCUpa_', length: 2 },
   hundredSongs: { id: 'PLBweDmMi-NsOeiKfKKrtcNW1HNy2giuqY', length: 100 }
 }
 
 describe('Core lib', () => {
-  beforeAll(() => fue.deleteDirectoryFiles(OUT_DIR))
-  afterAll(() => fue.deleteDirectoryFiles(OUT_DIR))
+  let downloader
+
+  beforeAll(() => {
+    downloader = new DownloadYTFile({ outputPath: OUT_DIR })
+    return fue.deleteDirectoryFiles(OUT_DIR)
+  })
+  afterAll(() => {
+    downloader.removeAllListeners()
+    return fue.deleteDirectoryFiles(OUT_DIR)
+  })
 
   it('download small playlist', async () => {
-    const downloader = new DownloadYTFile({ outputPath: OUT_DIR })
-
+    let startEvents = 0
     let progressEvents = 0
     let completeEvents = 0
+
+    downloader.on('start', () => startEvents++)
     downloader.on('progress', () => progressEvents++)
     downloader.on('complete', () => completeEvents++)
 
@@ -25,6 +35,7 @@ describe('Core lib', () => {
 
     // TODO more check on output
     expect(result).toHaveLength(TEST_PLAYLIST.twoSongs.length)
+    expect(startEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
     expect(completeEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
     expect(progressEvents).toBeGreaterThanOrEqual(TEST_PLAYLIST.twoSongs.length)
   }, 120000)
@@ -35,9 +46,22 @@ describe('Core lib', () => {
   })
 
   it('download single song', async () => {
-    // TODO implement
-    expect(true).toEqual(false)
-  })
+    let startEvents = 0
+    let progressEvents = 0
+    let completeEvents = 0
+
+    downloader.on('start', () => startEvents++)
+    downloader.on('progress', () => progressEvents++)
+    downloader.on('complete', () => completeEvents++)
+
+    const customFilename = 'new-name.mp3'
+    const result = await downloader.download(TEST_PLAYLIST.singleSong.id, customFilename)
+
+    expect(result).toMatchObject({ fileName: customFilename, id: TEST_PLAYLIST.singleSong.id, path: OUT_DIR, result: 'conversionFileComplete' })
+    expect(startEvents).toEqual(TEST_PLAYLIST.singleSong.length)
+    expect(completeEvents).toEqual(TEST_PLAYLIST.singleSong.length)
+    expect(progressEvents).toBeGreaterThanOrEqual(TEST_PLAYLIST.singleSong.length)
+  }, 120000)
 
   it('get playlist info', async () => {
     // TODO implement
