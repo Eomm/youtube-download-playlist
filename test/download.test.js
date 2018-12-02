@@ -87,6 +87,16 @@ describe('Core lib', () => {
     expect(info.thumbnail).toBeDefined()
   })
 
+  it('get video info error', async () => {
+    let error
+    try {
+      await downloader.getVideoInfo('error')
+    } catch (err) {
+      error = err
+    }
+    expect(error).toBeDefined()
+  })
+
   it('get playlist info', async () => {
     const info = await downloader.getPlaylistInfo(TEST_PLAYLIST.hundredSongs.id)
     expect(info.id).toEqual(TEST_PLAYLIST.hundredSongs.id)
@@ -95,6 +105,16 @@ describe('Core lib', () => {
       expect(i.id).toBeDefined()
       expect(i.title).toBeDefined()
     })
+  })
+
+  it('get playlist info error', async () => {
+    let error
+    try {
+      await downloader.getPlaylistInfo('error')
+    } catch (err) {
+      error = err
+    }
+    expect(error).toBeDefined()
   })
 
   it('overwrite configuration', async () => {
