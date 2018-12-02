@@ -21,6 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "file-utils-easy": "^1.1.0",
+    "fluent-ffmpeg": "^2.1.2",
     "horizon-youtube-mp3": "^1.9.1",
     "ytpl": "^0.1.14"
   },
