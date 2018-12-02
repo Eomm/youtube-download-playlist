@@ -26,21 +26,30 @@ describe('Core lib', () => {
     let startEvents = 0
     let progressEvents = 0
     let completeEvents = 0
+    let errorEvents = 0
 
     downloader.on('start', () => startEvents++)
     downloader.on('progress', () => progressEvents++)
     downloader.on('complete', () => completeEvents++)
+    downloader.on('error', () => errorEvents++)
 
     const result = await downloader.downloadPlaylist(TEST_PLAYLIST.twoSongs.id)
 
-    // TODO more check on output
     expect(result).toHaveLength(TEST_PLAYLIST.twoSongs.length)
     expect(startEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
     expect(completeEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
     expect(progressEvents).toBeGreaterThanOrEqual(1) // high speed network, less progress event
+    expect(errorEvents).toEqual(0)
+
+    result.forEach((song) => {
+      expect(song.id).toBeDefined()
+      expect(song.fileName).toBeDefined()
+      expect(song.path).toEqual(OUT_DIR)
+      expect(song.ref).toBeDefined()
+    })
   }, 120000)
 
-  it('download huge playlist', async () => {
+  it.skip('download huge playlist', async () => {
     // TODO implement
     expect(true).toEqual(false)
   })
@@ -49,33 +58,55 @@ describe('Core lib', () => {
     let startEvents = 0
     let progressEvents = 0
     let completeEvents = 0
+    let errorEvents = 0
 
     downloader.on('start', () => startEvents++)
     downloader.on('progress', () => progressEvents++)
     downloader.on('complete', () => completeEvents++)
+    downloader.on('error', () => errorEvents++)
 
-    const customFilename = 'new-name.mp3'
-    const result = await downloader.download(TEST_PLAYLIST.singleSong.id, customFilename)
+    const result = await downloader.download(TEST_PLAYLIST.singleSong.id)
 
-    expect(result).toMatchObject({ fileName: customFilename, id: TEST_PLAYLIST.singleSong.id, path: OUT_DIR, result: 'conversionFileComplete' })
+    expect(result).toMatchObject({ id: TEST_PLAYLIST.singleSong.id, path: OUT_DIR, result: 'conversionFileComplete' })
+    expect(result.fileName).toMatch(`${result.ref.title}.mp3`)
     expect(startEvents).toEqual(TEST_PLAYLIST.singleSong.length)
     expect(completeEvents).toEqual(TEST_PLAYLIST.singleSong.length)
     expect(progressEvents).toBeGreaterThanOrEqual(TEST_PLAYLIST.singleSong.length)
+    expect(errorEvents).toEqual(0)
   }, 120000)
 
+  it('get video info', async () => {
+    const info = await downloader.getVideoInfo(TEST_PLAYLIST.singleSong.id)
+    const compareTo = { id: 'ZIyyj2FrVI0',
+      url_simple: 'http://youtube.com/watch?v=ZIyyj2FrVI0',
+      title: '[No Copyright Music] Cloudy - KODOMOi',
+      duration: '3:24',
+      author: null }
+    expect(info).toMatchObject(compareTo)
+    expect(info.url).toBeDefined()
+    expect(info.thumbnail).toBeDefined()
+  })
+
   it('get playlist info', async () => {
-    // TODO implement
-    expect(true).toEqual(false)
+    const info = await downloader.getPlaylistInfo(TEST_PLAYLIST.hundredSongs.id)
+    expect(info.id).toEqual(TEST_PLAYLIST.hundredSongs.id)
+    expect(info.items).toHaveLength(TEST_PLAYLIST.hundredSongs.length)
+    info.items.forEach((i) => {
+      expect(i.id).toBeDefined()
+      expect(i.title).toBeDefined()
+    })
   })
 
   it('overwrite configuration', async () => {
     let startEvents = 0
     let progressEvents = 0
     let completeEvents = 0
+    let errorEvents = 0
 
     downloader.on('start', () => startEvents++)
     downloader.on('progress', () => progressEvents++)
     downloader.on('complete', () => completeEvents++)
+    downloader.on('error', () => errorEvents++)
 
     downloader.overwriteExistingFiles = false
     const customFilename = 'overwrite.mp3'
@@ -92,10 +123,11 @@ describe('Core lib', () => {
     expect(result).toMatchObject({ fileName: customFilename, id: TEST_PLAYLIST.singleSong.id, path: OUT_DIR, result: 'conversionFileComplete' })
     expect(startEvents).toEqual(TEST_PLAYLIST.singleSong.length)
     expect(completeEvents).toEqual(TEST_PLAYLIST.singleSong.length)
+    expect(errorEvents).toEqual(1)
     expect(progressEvents).toBeGreaterThanOrEqual(1) // high speed network, less progress event
   }, 120000)
 
-  it('ffmpeg controls', async () => {
+  it.skip('ffmpeg controls', async () => {
     // TODO implement
     expect(true).toEqual(false)
   })
