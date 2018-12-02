@@ -1,6 +1,6 @@
 'use strict'
 
-const DownloadYTFile = require('../lib/download-audio')
+const DownloadYTAudio = require('../lib/download-audio')
 const fue = require('file-utils-easy')
 
 const OUT_DIR = 'test/out'
@@ -14,7 +14,7 @@ describe('Core lib', () => {
   let downloader
 
   beforeAll(() => {
-    downloader = new DownloadYTFile({ outputPath: OUT_DIR })
+    downloader = new DownloadYTAudio({ outputPath: OUT_DIR })
     return fue.deleteDirectoryFiles(OUT_DIR)
   })
   afterAll(() => {
