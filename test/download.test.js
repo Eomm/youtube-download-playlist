@@ -37,7 +37,7 @@ describe('Core lib', () => {
     expect(result).toHaveLength(TEST_PLAYLIST.twoSongs.length)
     expect(startEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
     expect(completeEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
-    expect(progressEvents).toBeGreaterThanOrEqual(TEST_PLAYLIST.twoSongs.length)
+    expect(progressEvents).toBeGreaterThanOrEqual(1) // high speed network, less progress event
   }, 120000)
 
   it('download huge playlist', async () => {
@@ -68,10 +68,32 @@ describe('Core lib', () => {
     expect(true).toEqual(false)
   })
 
-  it('override parameter test', async () => {
-    // TODO implement
-    expect(true).toEqual(false)
-  })
+  it('overwrite configuration', async () => {
+    let startEvents = 0
+    let progressEvents = 0
+    let completeEvents = 0
+
+    downloader.on('start', () => startEvents++)
+    downloader.on('progress', () => progressEvents++)
+    downloader.on('complete', () => completeEvents++)
+
+    downloader.overwriteExistingFiles = false
+    const customFilename = 'overwrite.mp3'
+    const result = await downloader.download(TEST_PLAYLIST.singleSong.id, customFilename)
+
+    let overwriteError
+    try {
+      await downloader.download(TEST_PLAYLIST.singleSong.id, customFilename)
+    } catch (error) {
+      overwriteError = error
+    }
+    expect(overwriteError).toBeDefined()
+
+    expect(result).toMatchObject({ fileName: customFilename, id: TEST_PLAYLIST.singleSong.id, path: OUT_DIR, result: 'conversionFileComplete' })
+    expect(startEvents).toEqual(TEST_PLAYLIST.singleSong.length)
+    expect(completeEvents).toEqual(TEST_PLAYLIST.singleSong.length)
+    expect(progressEvents).toBeGreaterThanOrEqual(1) // high speed network, less progress event
+  }, 120000)
 
   it('ffmpeg controls', async () => {
     // TODO implement
