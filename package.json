@@ -23,6 +23,7 @@
     "file-utils-easy": "^1.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "horizon-youtube-mp3": "^1.9.1",
+    "rxjs": "^6.3.3",
     "ytpl": "^0.1.14"
   },
   "devDependencies": {

@@ -9,7 +9,7 @@ const TEST_PLAYLIST = {
   singleSong: { id: 'ZIyyj2FrVI0', length: 1 },
   twoSongs: { id: 'PLAv2aQ9JgGbVcUtDpuiTB9WgaMljCUpa_', length: 2 },
   twoSongsDuplicated: { id: 'PLAv2aQ9JgGbVEzvdzyoigNgnJcvOtMmU0', length: 2 },
-  hundredSongs: { id: 'PLBweDmMi-NsOeiKfKKrtcNW1HNy2giuqY', length: 100 }
+  hundredSongs: { id: 'PLzCxunOM5WFKZuBXTe8EobD6Dwi4qV-kO', length: 100 }
 }
 
 describe('Core lib', () => {
@@ -24,7 +24,7 @@ describe('Core lib', () => {
     return fue.deleteDirectoryFiles(OUT_DIR)
   })
 
-  it('download small playlist', async () => {
+  async function downloadPlaylist (testPlaylist) {
     let startEvents = 0
     let progressEvents = 0
     let completeEvents = 0
@@ -35,26 +35,27 @@ describe('Core lib', () => {
     downloader.on('complete', () => completeEvents++)
     downloader.on('error', () => errorEvents++)
 
-    const result = await downloader.downloadPlaylist(TEST_PLAYLIST.twoSongs.id)
+    const result = await downloader.downloadPlaylist(testPlaylist.id)
 
-    expect(result).toHaveLength(TEST_PLAYLIST.twoSongs.length)
-    expect(startEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
-    expect(completeEvents).toEqual(TEST_PLAYLIST.twoSongs.length)
+    expect(result).toHaveLength(testPlaylist.length)
+    expect(startEvents).toEqual(testPlaylist.length)
+    expect(completeEvents + errorEvents).toEqual(testPlaylist.length)
     expect(progressEvents).toBeGreaterThanOrEqual(1) // high speed network, less progress event
-    expect(errorEvents).toEqual(0)
 
     result.forEach((song) => {
       expect(song.id).toBeDefined()
-      expect(song.fileName).toBeDefined()
-      expect(song.path).toEqual(OUT_DIR)
+      expect(song.fileName || song.error).toBeDefined()
       expect(song.ref).toBeDefined()
+      if (song.path) {
+        expect(song.path).toEqual(OUT_DIR)
+      }
     })
-  }, 120000)
+  }
 
-  it.skip('download huge playlist', async () => {
-    // TODO implement
-    expect(true).toEqual(false)
-  })
+  it('download small playlist', () => downloadPlaylist(TEST_PLAYLIST.twoSongs), 120000)
+
+  // TODO: should mock in order to don't download "the world"
+  it.skip('download huge playlist', () => downloadPlaylist(TEST_PLAYLIST.hundredSongs), 1800000)
 
   it('download single song', async () => {
     let startEvents = 0
