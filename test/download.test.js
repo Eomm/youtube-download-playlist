@@ -80,11 +80,13 @@ describe('Core lib', () => {
 
   it('get video info', async () => {
     const info = await downloader.getVideoInfo(TEST_PLAYLIST.singleSong.id)
-    const compareTo = { id: 'ZIyyj2FrVI0',
+    const compareTo = {
+      id: 'ZIyyj2FrVI0',
       url_simple: 'http://youtube.com/watch?v=ZIyyj2FrVI0',
       title: '[No Copyright Music] Cloudy - KODOMOi',
       duration: '3:24',
-      author: null }
+      author: null
+    }
     expect(info).toMatchObject(compareTo)
     expect(info.url).toBeDefined()
     expect(info.thumbnail).toBeDefined()
@@ -178,8 +180,18 @@ describe('Core lib', () => {
     expect(result.find((song) => song.error !== undefined)).toBeDefined()
   }, 120000)
 
-  it.skip('ffmpeg controls', async () => {
-    // TODO implement
-    expect(true).toEqual(false)
-  })
+  it('ffmpeg error', async () => {
+    process.env.PATH = ``
+    let errorEvents = 0
+    downloader.on('error', () => errorEvents++)
+
+    let conversionError
+    try {
+      await downloader.download(TEST_PLAYLIST.singleSong.id)
+    } catch (error) {
+      conversionError = error
+    }
+    expect(errorEvents).toEqual(1)
+    expect(conversionError).toBeDefined()
+  }, 15000)
 })

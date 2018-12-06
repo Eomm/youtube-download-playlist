@@ -11,6 +11,9 @@
     "update-modules": "npm update && npm prune --production",
     "coverage": "npm test && npm run coveralls"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "keywords": [
     "youtube",
     "download",
@@ -21,7 +24,6 @@
   "license": "MIT",
   "dependencies": {
     "file-utils-easy": "^1.1.0",
-    "fluent-ffmpeg": "^2.1.2",
     "horizon-youtube-mp3": "^1.9.1",
     "rxjs": "^6.3.3",
     "ytpl": "^0.1.14"
