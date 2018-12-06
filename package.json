@@ -1,5 +1,5 @@
 {
-  "name": "youtube-download-playlist",
+  "name": "yt-dl-playlist",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",

@@ -1,9 +1,11 @@
-# youtube-download-playlist
+# yt-dl-playlist
 
 [![Coverage Status](https://coveralls.io/repos/github/Eomm/youtube-download-playlist/badge.svg?branch=master)](https://coveralls.io/github/Eomm/youtube-download-playlist?branch=master)
 
 This module let you to programatic download the audio files of a video playlist on YouTube in MP3 format.
 It exposes API to download also single audio.
+
+The name of this module is due the npm policy, call it `youtube-download-playlist`.
 
 ## Usage
 
@@ -33,7 +35,7 @@ PATH=$PATH:/ffmpeg/bin; node cli ZIyyj2FrVI0 video
 ### Module
 
 ```js
-const DownloadYTFile = require('youtube-download-playlist')
+const DownloadYTFile = require('yt-dl-playlist')
 
 const downloader = new DownloadYTFile({ 
   outputPath: __dirname,
