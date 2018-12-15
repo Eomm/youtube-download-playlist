@@ -52,8 +52,8 @@ downloader.on('error', (fileInfo) => errorEvents++)
 downloader.download(id, inputFileName = null) : Promise
 downloader.downloadPlaylist(playlistId) : Promise<Array>
 
-downloader.getPlaylistInfo(id, inputFileName = null) : Promise
-downloader.getVideoInfo(playlistId) : Promise
+downloader.getPlaylistInfo(playlistId) : Promise
+downloader.getVideoInfo(videoId) : Promise
 
 ```
 
