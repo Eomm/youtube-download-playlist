@@ -1,8 +1,8 @@
 {
   "name": "yt-dl-playlist",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "app.js",
+  "main": "lib/download-audio.js",
   "scripts": {
     "cli": "node cli.js",
     "test": "standard && jest --coverage",
