@@ -183,7 +183,10 @@ describe('Core lib', () => {
   it('ffmpeg error', async () => {
     process.env.PATH = ``
     let errorEvents = 0
-    downloader.on('error', () => errorEvents++)
+    downloader.on('error', (errorEvent) => {
+      errorEvents++
+      expect(errorEvent.result).toBeDefined()
+    })
 
     let conversionError
     try {
@@ -193,5 +196,6 @@ describe('Core lib', () => {
     }
     expect(errorEvents).toEqual(1)
     expect(conversionError).toBeDefined()
+    expect(conversionError.result).toEqual('internalServerErrorOnProcessingVideo.')
   }, 15000)
 })
