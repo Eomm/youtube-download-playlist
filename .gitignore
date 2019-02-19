@@ -15,10 +15,12 @@ yarn-error.log*
 *auth*.json
 
 .coveralls.yml
-coverage/*
+coverage
 
 .env
 
 ffmpeg/
 
 *.mp3
+
+.vscode

@@ -1,6 +1,6 @@
 # yt-dl-playlist
 
-[![Coverage Status](https://coveralls.io/repos/github/Eomm/youtube-download-playlist/badge.svg?branch=master)](https://coveralls.io/github/Eomm/youtube-download-playlist?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Eomm/youtube-download-playlist/badge.svg?branch=master)](https://coveralls.io/github/Eomm/youtube-download-playlist?branch=master) [![install size](https://packagephobia.now.sh/badge?p=yt-dl-playlist)](https://packagephobia.now.sh/result?p=yt-dl-playlist)
 
 This module let you to programatic download the audio files of a video playlist on YouTube in MP3 format.
 It exposes API to download also single audio.
@@ -11,8 +11,15 @@ The name of this module is due the npm policy, call it `youtube-download-playlis
 
 ### CLI
 
+The cli is very simple and quick-and-dirty, it just tryes to do what you want.
+
 ```sh
-node cli.js id[, command]
+# NPM Global
+npm install yt-dl-playlist -g
+yd ${id}[, command]
+
+# NPX
+npx yt-dl-playlist ${id}[, command]
 ```
 
 | Command | Description |
@@ -22,17 +29,31 @@ node cli.js id[, command]
 | `info-playlist` | Print playlist info
 | `info-video` | Print video info
 
+Ex:
+
+```sh
+# Download playlist
+yd PLAv2aQ9JgGbVcUtDpuiTB9WgaMljCUpa_
+
+# Download audio
+yd 2bexTB7xq_U video
+
+# View info video
+yd 2bexTB7xq_U info-video
+```
 
 #### Customize FFMPEG Path
 
 To config the `ffmpeg` path you can run the script like this:
 
 ```sh
-PATH=$PATH:/ffmpeg/bin; node cli ZIyyj2FrVI0 video
+PATH=$PATH:/ffmpeg/bin; yd ZIyyj2FrVI0 video
 ```
 
 
 ### Module
+
+You can use this lib as a module also!
 
 ```js
 const DownloadYTFile = require('yt-dl-playlist')
@@ -52,8 +73,8 @@ downloader.on('error', (fileInfo) => errorEvents++)
 downloader.download(id, inputFileName = null) : Promise
 downloader.downloadPlaylist(playlistId) : Promise<Array>
 
-downloader.getPlaylistInfo(playlistId) : Promise
-downloader.getVideoInfo(videoId) : Promise
+downloader.getPlaylistInfo(playlistId) : Promise<object>
+downloader.getVideoInfo(videoId) : Promise<object>
 
 ```
 
@@ -62,6 +83,3 @@ downloader.getVideoInfo(videoId) : Promise
 ```
 npm test
 ```
-
-
-TODO: writing better standard docs.. ⏳
