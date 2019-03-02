@@ -23,15 +23,17 @@ if (!validCommand.has(command)) {
   process.exit(-1)
 }
 
-console.log(`Executing ${command} - ${id}`)
+console.log(`Executing [${command}] command on id: ${id}`)
 const commandExecution = validCommand.get(command)
 
-const downloader = new DownloadYTFile({ outputPath: __dirname })
+const downloader = new DownloadYTFile({ outputPath: process.cwd() })
 
-downloader.on('start', console.log)
-downloader.on('progress', (_) => console.log(_.percent))
-downloader.on('error', console.log)
+downloader.on('start', (item) => console.log(`Starting download of ${item.fileName} in directory ${item.path}`))
+downloader.on('progress', (item) => console.log(`Converting ${item.fileName} ${item.percent}`))
+downloader.on('error', (item) => console.error(`Error converting ${item.fileName}`))
 
 downloader[commandExecution](id)
-  .then((res) => { console.log('Done', res) })
-  .catch(console.log)
+  .then((res) => { console.log('Execution completed') })
+  .catch((error) => {
+    console.error('Fatal error', error.result || error)
+  })

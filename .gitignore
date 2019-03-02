@@ -24,3 +24,5 @@ ffmpeg/
 *.mp3
 
 .vscode
+
+package-lock.json
