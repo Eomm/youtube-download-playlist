@@ -11,7 +11,7 @@ The name of this module is due the npm policy, call it `youtube-download-playlis
 
 ### CLI
 
-The cli is very simple and quick-and-dirty, it just tryes to do what you want.
+The cli is very simple and quick-and-dirty:
 
 ```sh
 # NPM Global
@@ -42,13 +42,30 @@ yd 2bexTB7xq_U video
 yd 2bexTB7xq_U info-video
 ```
 
-#### Customize FFMPEG Path
 
-To config the `ffmpeg` path you can run the script like this:
+#### FFMPEG
+
+This program needs [`ffmpeg`](https://www.ffmpeg.org/download.html). It is a free program that elaborate
+video and audio stream. It can be donwload also in the portable `zip` without installation!
+
+**Windows**
+
+To config the `ffmpeg` path you can run the script in a `cmd` shell like this:
 
 ```sh
 PATH=$PATH:/ffmpeg/bin; yd ZIyyj2FrVI0 video
 ```
+
+Or more simply run the `yd` command from the directory where ffmpeg is saved:
+
+```sh
+cd download/ffmpeg/bin
+yd ZIyyj2FrVI0 video
+```
+
+**Linux**
+
+You know what to do 👍
 
 
 ### Module
