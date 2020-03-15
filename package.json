@@ -8,7 +8,7 @@
   },
   "scripts": {
     "cli": "node cli.js",
-    "test": "standard && tap test/*.test.js",
+    "test": "standard && tap --no-esm --cov test/*.test.js",
     "lint:fix": "standard --fix"
   },
   "engines": {
