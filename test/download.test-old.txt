@@ -57,57 +57,6 @@ describe('Core lib', () => {
   // TODO: should mock in order to don't download "the world"
   it.skip('download huge playlist', () => downloadPlaylist(TEST_PLAYLIST.hundredSongs), 1800000)
 
-  it('download single song', async () => {
-    let startEvents = 0
-    let progressEvents = 0
-    let completeEvents = 0
-    let errorEvents = 0
-
-    downloader.on('start', () => startEvents++)
-    downloader.on('progress', () => progressEvents++)
-    downloader.on('complete', () => completeEvents++)
-    downloader.on('error', () => errorEvents++)
-
-    const result = await downloader.download(TEST_PLAYLIST.singleSong.id)
-
-    expect(result).toMatchObject({ id: TEST_PLAYLIST.singleSong.id, path: OUT_DIR, result: 'conversionFileComplete' })
-    expect(result.fileName).toMatch(`${result.ref.title}.mp3`)
-    expect(startEvents).toEqual(TEST_PLAYLIST.singleSong.length)
-    expect(completeEvents).toEqual(TEST_PLAYLIST.singleSong.length)
-    expect(progressEvents).toBeGreaterThanOrEqual(TEST_PLAYLIST.singleSong.length)
-    expect(errorEvents).toEqual(0)
-  }, 120000)
-
-  it('get video info error', async () => {
-    let error
-    try {
-      await downloader.getVideoInfo('error')
-    } catch (err) {
-      error = err
-    }
-    expect(error).toBeDefined()
-  })
-
-  it('get playlist info', async () => {
-    const info = await downloader.getPlaylistInfo(TEST_PLAYLIST.hundredSongs.id)
-    expect(info.id).toEqual(TEST_PLAYLIST.hundredSongs.id)
-    expect(info.items).toHaveLength(TEST_PLAYLIST.hundredSongs.length)
-    info.items.forEach((i) => {
-      expect(i.id).toBeDefined()
-      expect(i.title).toBeDefined()
-    })
-  }, 10000)
-
-  it('get playlist info error', async () => {
-    let error
-    try {
-      await downloader.getPlaylistInfo('error')
-    } catch (err) {
-      error = err
-    }
-    expect(error).toBeDefined()
-  })
-
   it('overwrite configuration', async () => {
     let startEvents = 0
     let progressEvents = 0
