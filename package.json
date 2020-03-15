@@ -1,7 +1,7 @@
 {
   "name": "yt-dl-playlist",
   "version": "1.1.2",
-  "description": "",
+  "description": "Download audio from YouTube",
   "main": "lib/download-audio.js",
   "bin": {
     "yd": "cli.js"
@@ -9,10 +9,7 @@
   "scripts": {
     "cli": "node cli.js",
     "test": "standard && tap test/*.test.js",
-    "lint:fix": "standard --fix",
-    "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "update-modules": "npm update && npm prune --production",
-    "coverage": "npm test && npm run coveralls"
+    "lint:fix": "standard --fix"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -40,7 +37,6 @@
     "ytpl": "^0.1.20"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.14",
     "coveralls": "^3.0.3",
     "standard": "^14.3.2",
     "tap": "^14.10.6"

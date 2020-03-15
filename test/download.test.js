@@ -1,12 +1,12 @@
 'use strict'
 
 const t = require('tap')
-
+const path = require('path')
 const DownloadYTAudio = require('../lib/download-audio')
 
 const OUT_DIR = 'test/out'
 const TEST_PLAYLIST = {
-  singleSong: { id: 'ZIyyj2FrVI0', length: 1 },
+  singleSong: { id: 'A02s8omM_hI', length: 1 },
   twoSongs: { id: 'PLAv2aQ9JgGbVcUtDpuiTB9WgaMljCUpa_', length: 2 },
   twoSongsDuplicated: { id: 'PLAv2aQ9JgGbVEzvdzyoigNgnJcvOtMmU0', length: 2 },
   hundredSongs: { id: 'PLzCxunOM5WFKZuBXTe8EobD6Dwi4qV-kO', length: 100 }
@@ -16,11 +16,11 @@ t.test('get video info', async t => {
   const downloader = new DownloadYTAudio({ outputPath: OUT_DIR })
   const info = await downloader.getVideoInfo(TEST_PLAYLIST.singleSong.id)
   const compareTo = {
-    id: 'ZIyyj2FrVI0',
-    title: 'Cloudy - KODOMOi [Vlog No Copyright Music]',
-    duration: 204,
+    id: TEST_PLAYLIST.singleSong.id,
+    title: 'Šílený Ota',
+    duration: 7,
     author: {
-      name: 'Audio Library — Music for content creators'
+      name: 'DanielKec'
     }
   }
   t.like(info, compareTo)
@@ -63,7 +63,7 @@ t.test('get playlist info error', async t => {
   }
 })
 
-t.test('download single song', async t => {
+t.test('download single song', { timeout: 300000 }, async t => {
   let startEvents = 0
   let progressEvents = 0
   let completeEvents = 0
@@ -75,10 +75,16 @@ t.test('download single song', async t => {
   downloader.on('complete', () => completeEvents++)
   downloader.on('error', () => errorEvents++)
 
-  const result = await downloader.download(TEST_PLAYLIST.singleSong.id)
+  const fileName = `${Date.now()}.mp3`
+  const result = await downloader.download(TEST_PLAYLIST.singleSong.id, fileName)
 
-  t.like(result, { id: TEST_PLAYLIST.singleSong.id, path: OUT_DIR, result: 'conversionFileComplete' })
-  t.equals(result.fileName, `${result.ref.title}.mp3`)
+  t.like(result, {
+    id: TEST_PLAYLIST.singleSong.id,
+    path: OUT_DIR,
+    fileName,
+    filePath: path.join(OUT_DIR, fileName)
+  })
+  // t.equals(result.fileName, `${result.ref.title}.mp3`)
   t.equals(startEvents, TEST_PLAYLIST.singleSong.length)
   t.equals(completeEvents, TEST_PLAYLIST.singleSong.length)
   t.ok(progressEvents >= TEST_PLAYLIST.singleSong.length)
