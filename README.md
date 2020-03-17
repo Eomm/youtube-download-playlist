@@ -15,7 +15,7 @@ The name of this module is due the npm policy, call it `youtube-download-playlis
 ### Requirements
 
 - [Node.js](https://nodejs.org/it/download/) >= v10
-- [FFMPEG](/#FFMPEG) installed in your system.
+- [`ffmpeg`](https://www.ffmpeg.org/download.html) installed in your system
 
 ```sh
 npm install yt-dl-playlist
@@ -24,6 +24,8 @@ npm install yt-dl-playlist
 ## Usage
 
 ### CLI - Command Line Interface
+
+Run `yd --help` to see all the options!!
 
 The cli is very simple and quick-and-dirty:
 
@@ -56,8 +58,6 @@ This program needs [`ffmpeg`](https://www.ffmpeg.org/download.html).
 It is a free program that elaborate video and audio stream.
 It can be download also in the portable `.zip` without installation!
 
-**Windows**
-
 To config the `ffmpeg` path you can run the script in a `cmd` shell like this:
 
 ```sh
@@ -70,10 +70,6 @@ Or more simply run the `yd` command from the directory where ffmpeg is saved:
 cd download/ffmpeg/bin
 yd ZIyyj2FrVI0
 ```
-
-**Linux**
-
-You know what to do 👍
 
 
 ### Module
