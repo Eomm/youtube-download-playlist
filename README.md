@@ -10,25 +10,36 @@ The name of this module is due the npm policy, call it `youtube-download-playlis
 
 ⚠ You must use this module/cli respecting the [YouTube's Copyright Policies](https://www.youtube.com/intl/en/about/copyright/#support-and-troubleshooting).
 
+## Install
+
+### Requirements
+
+- [Node.js](https://nodejs.org/it/download/) >= v10
+- [FFMPEG](/#FFMPEG) installed in your system.
+
+```
+npm install yt-dl-playlist
+```
+
 ## Usage
 
-### CLI
+### CLI - Command Line Interface
 
 The cli is very simple and quick-and-dirty:
 
 ```sh
 # NPM Global
 npm install yt-dl-playlist -g
-yd ${id}[, command]
+yd <action> <video_id or playlist_id>
 
 # NPX
-npx yt-dl-playlist ${id}[, command]
+npx yt-dl-playlist <action> <video_id or playlist_id>
 ```
 
-| Command | Description |
+| Action | Description |
 | ------- | ----------- |
 | `playlist` | Download the video on playlist id (Default)
-| `video` | Download the video id
+| `video`    | Download the video id
 | `info-playlist` | Print playlist info
 | `info-video` | Print video info
 
@@ -39,24 +50,25 @@ Ex:
 yd PLAv2aQ9JgGbVcUtDpuiTB9WgaMljCUpa_
 
 # Download audio
-yd 2bexTB7xq_U video
+yd video 2bexTB7xq_U
 
 # View info video
-yd 2bexTB7xq_U info-video
+yd info-video 2bexTB7xq_U
 ```
 
 
 #### FFMPEG
 
-This program needs [`ffmpeg`](https://www.ffmpeg.org/download.html). It is a free program that elaborate
-video and audio stream. It can be donwload also in the portable `zip` without installation!
+This program needs [`ffmpeg`](https://www.ffmpeg.org/download.html).
+It is a free program that elaborate video and audio stream.
+It can be download also in the portable `.zip` without installation!
 
 **Windows**
 
 To config the `ffmpeg` path you can run the script in a `cmd` shell like this:
 
 ```sh
-PATH=$PATH:/ffmpeg/bin; yd ZIyyj2FrVI0 video
+PATH=$PATH:/ffmpeg/bin; yd video ZIyyj2FrVI0
 ```
 
 Or more simply run the `yd` command from the directory where ffmpeg is saved:
@@ -98,8 +110,7 @@ downloader.getVideoInfo(videoId) : Promise<object>
 
 ```
 
-## Test
 
-```
-npm test
-```
+## License
+
+Copyright [MIT](./LICENSE).
