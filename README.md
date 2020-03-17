@@ -17,7 +17,7 @@ The name of this module is due the npm policy, call it `youtube-download-playlis
 - [Node.js](https://nodejs.org/it/download/) >= v10
 - [FFMPEG](/#FFMPEG) installed in your system.
 
-```
+```sh
 npm install yt-dl-playlist
 ```
 
@@ -30,30 +30,23 @@ The cli is very simple and quick-and-dirty:
 ```sh
 # NPM Global
 npm install yt-dl-playlist -g
-yd <action> <video_id or playlist_id>
+yd <video_id or playlist_id>
 
 # NPX
-npx yt-dl-playlist <action> <video_id or playlist_id>
+npx yt-dl-playlist <video_id or playlist_id> [flags]
 ```
 
-| Action | Description |
-| ------- | ----------- |
-| `playlist` | Download the video on playlist id (Default)
-| `video`    | Download the video id
-| `info-playlist` | Print playlist info
-| `info-video` | Print video info
-
-Ex:
+Examples:
 
 ```sh
 # Download playlist
-yd PLAv2aQ9JgGbVcUtDpuiTB9WgaMljCUpa_
+yd PLAv2aQ9JgGbVcUtDpuiTB9WgaMljCUpa_ -p
 
 # Download audio
-yd video 2bexTB7xq_U
+yd 2bexTB7xq_U
 
 # View info video
-yd info-video 2bexTB7xq_U
+yd --info 2bexTB7xq_U
 ```
 
 
@@ -68,14 +61,14 @@ It can be download also in the portable `.zip` without installation!
 To config the `ffmpeg` path you can run the script in a `cmd` shell like this:
 
 ```sh
-PATH=$PATH:/ffmpeg/bin; yd video ZIyyj2FrVI0
+yd ZIyyj2FrVI0 -F /ffmpeg/bin
 ```
 
 Or more simply run the `yd` command from the directory where ffmpeg is saved:
 
 ```sh
 cd download/ffmpeg/bin
-yd ZIyyj2FrVI0 video
+yd ZIyyj2FrVI0
 ```
 
 **Linux**
@@ -91,23 +84,30 @@ You can use this lib as a module also!
 const DownloadYTFile = require('yt-dl-playlist')
 
 const downloader = new DownloadYTFile({ 
-  outputPath: __dirname,
-  overwrite,
-  fileNameGenerator,
-  maxParallelDownload,
+  outputPath: process.cwd(),
+  ffmpegPath: './ffmpeg/bin/ffmpeg.exe',
+  maxParallelDownload: 10,
+  fileNameGenerator: (videoTitle) => {
+    return 'a-new-file-name.mp3'
+  }
 })
 
-downloader.on('start', (fileInfo) => startEvents++)
-downloader.on('progress', (fileProgressInfo) => progressEvents++)
-downloader.on('complete', (fileInfo) => completeEvents++)
-downloader.on('error', (fileInfo) => errorEvents++)
+downloader.on('video-info', (fileInfo, video) => {
+  console.log({ fileInfo, video })
+})
+downloader.on('video-setting', (fileInfo, settings) => {
+  console.log({ fileInfo, settings })
+})
+downloader.on('start', (fileInfo) => console.log(fileInfo))
+downloader.on('progress', (fileInfo) => console.log(fileInfo))
+downloader.on('complete', (fileInfo) => console.log(fileInfo))
+downloader.on('error', (fileInfo) => console.log(fileInfo.error))
 
-downloader.download(id, inputFileName = null) : Promise
+downloader.download(id, inputFileName = null) : Promise<object>
 downloader.downloadPlaylist(playlistId) : Promise<Array>
 
 downloader.getPlaylistInfo(playlistId) : Promise<object>
 downloader.getVideoInfo(videoId) : Promise<object>
-
 ```
 
 
