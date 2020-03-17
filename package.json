@@ -1,21 +1,18 @@
 {
   "name": "yt-dl-playlist",
-  "version": "1.1.2",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Download audio from YouTube",
   "main": "lib/download-audio.js",
   "bin": {
     "yd": "cli.js"
   },
   "scripts": {
     "cli": "node cli.js",
-    "test": "standard && jest --coverage",
-    "standard:fix": "standard --fix",
-    "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "update-modules": "npm update && npm prune --production",
-    "coverage": "npm test && npm run coveralls"
+    "test": "standard && tap --no-esm --cov test/*.test.js",
+    "lint:fix": "standard --fix"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "keywords": [
     "youtube",
@@ -33,23 +30,15 @@
     "url": "https://github.com/Eomm/youtube-download-playlist/issues"
   },
   "dependencies": {
-    "file-utils-easy": "^1.2.0",
-    "horizon-youtube-mp3": "^1.9.1",
+    "commander": "^5.0.0",
+    "fluent-ffmpeg": "^2.1.2",
     "rxjs": "^6.4.0",
-    "ytpl": "^0.1.14"
+    "ytdl-core": "^2.0.0",
+    "ytpl": "^0.1.20"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.14",
     "coveralls": "^3.0.3",
-    "jest": "^22.4.4",
-    "standard": "^12.0.1"
-  },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "standard": {
-    "env": [
-      "jest"
-    ]
+    "standard": "^14.3.2",
+    "tap": "^14.10.6"
   }
 }
