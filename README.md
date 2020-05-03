@@ -1,5 +1,6 @@
 # yt-dl-playlist
 
+![ci](https://github.com/Eomm/youtube-download-playlist/workflows/ci/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/Eomm/youtube-download-playlist/badge.svg?branch=master)](https://coveralls.io/github/Eomm/youtube-download-playlist?branch=master)
 [![install size](https://packagephobia.now.sh/badge?p=yt-dl-playlist)](https://packagephobia.now.sh/result?p=yt-dl-playlist)
 
