@@ -96,7 +96,7 @@ t.test('download single audio', { timeout: 300000 }, async t => {
   let errorEvents = 0
 
   const downloader = new DownloadYTAudio({
-    ffmpegPath: process.env.CI ? null : path.join(__dirname, '../ffmpeg/bin/ffmpeg'),
+    ffmpegPath: process.env.CI ? '/usr/local/bin/ffmpeg' : path.join(__dirname, '../ffmpeg/bin/ffmpeg'),
     outputPath: OUT_DIR
   })
   downloader.on('video-info', () => infoEvent++)
@@ -135,7 +135,7 @@ async function downloadPlaylist (testPlaylist) {
   let errorEvents = 0
 
   const downloader = new DownloadYTAudio({
-    ffmpegPath: process.env.CI ? null : path.join(__dirname, '../ffmpeg/bin/ffmpeg'),
+    ffmpegPath: process.env.CI ? '/usr/local/bin/ffmpeg' : path.join(__dirname, '../ffmpeg/bin/ffmpeg'),
     outputPath: OUT_DIR
   })
 
