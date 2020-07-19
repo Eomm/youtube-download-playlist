@@ -1,6 +1,6 @@
 {
   "name": "yt-dl-playlist",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Download audio from YouTube",
   "main": "lib/download-audio.js",
   "bin": {
