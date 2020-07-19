@@ -60,7 +60,7 @@ t.test('get video info error', async t => {
     t.fail('should not happen')
   } catch (err) {
     t.ok(err)
-    t.like(err.message, 'This video is unavailable')
+    t.like(err.message, 'unavailable')
   }
 })
 
