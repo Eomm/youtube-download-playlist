@@ -83,7 +83,7 @@ t.test('get playlist info error', async t => {
     t.fail('should not happen')
   } catch (err) {
     t.ok(err)
-    t.like(err.message, 'Unable to find a id in abcdefg8761')
+    t.like(err.message, 'Unable to find a id in "abcdefg8761"')
   }
 })
 
