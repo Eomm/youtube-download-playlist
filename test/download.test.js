@@ -12,6 +12,8 @@ const TEST_PLAYLIST = {
   hundredSongs: { id: 'PLzCxunOM5WFKZuBXTe8EobD6Dwi4qV-kO', length: 100 }
 }
 
+t.setTimeout(0)
+
 t.test('download ffmpeg error', { timeout: 300000 }, async t => {
   // this must be the first test because fluent-ffmpeg cache the right path of ffmpeg (_getFfmpegPath)
   let errorEvents = 0
@@ -83,7 +85,7 @@ t.test('get playlist info error', async t => {
     t.fail('should not happen')
   } catch (err) {
     t.ok(err)
-    t.like(err.message, 'Unable to find a id in abcdefg8761')
+    t.like(err.message, 'Unable to find a id in "abcdefg8761"')
   }
 })
 
